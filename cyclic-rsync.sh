@@ -27,8 +27,9 @@ which systemctl >/dev/null 2>&1 && inhibit_shutdown='systemd-inhibit --why Data_
 # Other variables: rsync exclusions
 
 EchoQuit() {
-        [ $2 != 0 ] && PRIORITY="emerg"
-        echo $1 | logger -t "$log_tag" -s -p ${PRIORITY:-info}
+        [[ $2 != "0" ]] && PRIORITY="emerg"
+        [[ $2 != "0" ]] && which zenity && zenity --error --title "$log_tag" --text "$1"
+        logger -t "$log_tag" -s -p ${PRIORITY:-info} <<<"$1"
         exit ${2:-0}
 }
 
