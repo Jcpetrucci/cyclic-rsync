@@ -62,8 +62,8 @@ fileRotation
 
 # Informational message if unable to move instance to instance.0.  One reason for this is simply that the rsync never ran and produced the directory.  Other reasons could be permissions problems.
 case "$?" in
-	100)	EchoQuit "Destination directory is not accessible on SSH target." 1;;
-	101)	printf "%s\n" "Moving instance to instance.0 failed.  This could mean rsync has never run." >&2;;
+	(100)	EchoQuit "Destination directory is not accessible on SSH target." 1;;
+	(101)	printf "%s\n" "Moving instance to instance.0 failed.  This could mean rsync has never run." >&2;;
 esac
 
 $inhibit_shutdown rsync -va --chmod=+rX --delete --no-group --no-owner --exclude={/lost+found,/.Trash*,/SteamLibrary,/Data/recup_dir*} --link-dest="${destination_path}instance.0/" --log-format="%f -- Bytes on wire: %b -- Modified: %M -- Changes: %i" -e "ssh -i \"$ssh_key\"" "$source_path" "${ssh_user}@${ssh_host}:${destination_path}instance/"
