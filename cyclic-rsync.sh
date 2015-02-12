@@ -28,7 +28,7 @@ which systemctl >/dev/null 2>&1 && inhibit_shutdown='systemd-inhibit --why Data_
 
 EchoQuit() {
         [[ $2 != "0" ]] && PRIORITY="emerg"
-        [[ $2 != "0" ]] && which zenity && zenity --error --title "$log_tag" --text "$1" --display=:0.0
+        [[ $2 != "0" ]] && which zenity && zenity --error --title "$log_tag" --text "$1" --display=:0.0 &
         logger -t "$log_tag" -s -p ${PRIORITY:-info} <<<"$1"
         exit ${2:-0}
 }
