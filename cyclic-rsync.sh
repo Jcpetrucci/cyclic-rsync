@@ -66,7 +66,7 @@ case "$?" in
 	(101)	printf "%s\n" "Moving instance to instance.0 failed.  This could mean rsync has never run." >&2;;
 esac
 
-$inhibit_shutdown rsync -va --chmod=+rX --delete --no-group --no-owner --exclude={/lost+found,/.Trash*,/SteamLibrary,/Data/recup_dir*} --link-dest="${destination_path}instance.0/" --log-format="%f -- Bytes on wire: %b -- Modified: %M -- Changes: %i" -e "ssh -i \"$ssh_key\"" "$source_path" "${ssh_user}@${ssh_host}:${destination_path}instance/"
+$inhibit_shutdown rsync -va --chmod=+rX --delete --no-group --no-owner --exclude={/lost+found,/.Trash*,/SteamLibrary,/Data/recup_dir*,/Vagrant,/Virtualbox_Store} --link-dest="${destination_path}instance.0/" --log-format="%f -- Bytes on wire: %b -- Modified: %M -- Changes: %i" -e "ssh -i \"$ssh_key\"" "$source_path" "${ssh_user}@${ssh_host}:${destination_path}instance/"
 	# Explanation of all rsync options:
 	# -v					Verbose.  This is so that we get a summary at the end showing the total bytes transferred.
 	# -a					Archive.  This sets some basics such as recursion.
